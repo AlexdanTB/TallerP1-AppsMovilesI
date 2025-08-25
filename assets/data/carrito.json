@@ -1,0 +1,24 @@
+{
+    "carrito": [
+        {
+            "codigo": "SH-MX30",
+            "nombre": "Speedster",
+            "precio": 189.99,
+            "marca": "SHAFT",
+            "tipo": "Off-Road",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/SHAFT_MX30-SPEEDSTERROJO-LATERAL-IZQUIERDA.png"
+        },
+        {
+            "codigo": "FF353",
+            "nombre": "Rapid II XDRON",
+            "precio": 109.99,
+            "marca": "LS2",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "HPTT",
+            "imagen": "https://static.ls2helmets.com/items/163535002/1635350021726846227.png"
+        }
+    ]
+}

@@ -1,0 +1,94 @@
+{
+	"cascos":[
+  {
+	"codigo": "SH-522",
+    "nombre": "Neuroo",
+    "precio": 89.99,
+    "marca": "SHAFT",
+    "tipo": "Integral",
+    "hologacion": "EC22-05",
+	"material":"ABS",
+    "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SH-522-NEUROO-NB-NEGRO-AMARILLO-LATERAL.png"
+  },
+  {
+	"codigo": "SH-3690 DV",
+    "nombre": "Neon",
+    "precio": 149.99,
+    "marca": "SHAFT",
+    "tipo": "Abatible",
+    "hologacion": "EC22-05",
+	"material":"ABS",
+    "imagen": "https://shafthelmets.com/wp-content/uploads/SH_3690-GP-NEON-AMARILLO-LATERAL-IZQUIERDO.png"
+  },
+  {
+	"codigo": "SH-582 SP",
+    "nombre": "Handmade",
+    "precio": 99.99,
+    "marca": "SHAFT",
+    "tipo": "Integral",
+    "hologacion": "EC22-05",
+	"material":"ABS",
+    "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SH-522-NEUROO-NB-NEGRO-AMARILLO-LATERAL.png"
+  },
+  {
+	"codigo": "SH-MX30",
+    "nombre": "Speedster",
+    "precio": 189.99,
+    "marca": "SHAFT",
+    "tipo": "Off-Road",
+    "hologacion": "EC22-05",
+	"material":"ABS",
+    "imagen": "https://shafthelmets.com/wp-content/uploads/SHAFT_MX30-SPEEDSTERROJO-LATERAL-IZQUIERDA.png"
+  },
+  {
+	"codigo": "ICH-503",
+    "nombre": "ICH 503",
+    "precio": 39.99,
+    "marca": "ICH",
+    "tipo": "Integral",
+    "hologacion": "DOT",
+	"material":"ABS",
+    "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0005_ICH-503-SP-NM-AZ-LAT-3.4-DER.png"
+  },
+  {
+	"codigo": "ICH-205",
+    "nombre": "ICH 205",
+    "precio": 59.99,
+    "marca": "ICH",
+    "tipo": "Abierto",
+    "hologacion": "DOT",
+	"material":"ABS",
+    "imagen": "https://ichhelmets.com/wp-content/uploads/2025/06/0006_ICH.205.SOLID_.AZ_.SL_.V.SM_.CL_.IR_.SL_.LAT_.png"
+  },
+  {
+	"codigo": "ICH-3120",
+    "nombre": "ICH 3120",
+    "precio": 49.99,
+    "marca": "ICH",
+    "tipo": "Abatible",
+    "hologacion": "DOT",
+	"material":"ABS",
+    "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0000_ICH-3120-HURS-NB-VD.N-LATERAL-IZQ.png"
+  },
+  {
+	"codigo": "FF353",
+    "nombre": "Rapid II XDRON",
+    "precio": 109.99,
+    "marca": "LS2",
+    "tipo": "Integral",
+    "hologacion": "EC22-06",
+	"material":"HPTT",
+    "imagen": "https://static.ls2helmets.com/items/163535002/1635350021726846227.png"
+  },
+   {
+	"codigo": "FF353",
+    "nombre": "Rapid II Solid",
+    "precio": 99.99,
+    "marca": "LS2",
+    "tipo": "Integral",
+    "hologacion": "EC22-06",
+	"material":"HPTT",
+    "imagen": "https://www.zr24.de/media/image/17/b3/d4/FF353_RAPID_SOLID_MATT_BLACK_103531011_A_67811_675x700.png"
+  }
+	]
+}
