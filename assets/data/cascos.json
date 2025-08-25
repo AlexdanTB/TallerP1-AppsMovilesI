@@ -1,94 +1,204 @@
 {
-	"cascos":[
-  {
-	"codigo": "SH-522",
-    "nombre": "Neuroo",
-    "precio": 89.99,
-    "marca": "SHAFT",
-    "tipo": "Integral",
-    "hologacion": "EC22-05",
-	"material":"ABS",
-    "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SH-522-NEUROO-NB-NEGRO-AMARILLO-LATERAL.png"
-  },
-  {
-	"codigo": "SH-3690 DV",
-    "nombre": "Neon",
-    "precio": 149.99,
-    "marca": "SHAFT",
-    "tipo": "Abatible",
-    "hologacion": "EC22-05",
-	"material":"ABS",
-    "imagen": "https://shafthelmets.com/wp-content/uploads/SH_3690-GP-NEON-AMARILLO-LATERAL-IZQUIERDO.png"
-  },
-  {
-	"codigo": "SH-582 SP",
-    "nombre": "Handmade",
-    "precio": 99.99,
-    "marca": "SHAFT",
-    "tipo": "Integral",
-    "hologacion": "EC22-05",
-	"material":"ABS",
-    "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SH-522-NEUROO-NB-NEGRO-AMARILLO-LATERAL.png"
-  },
-  {
-	"codigo": "SH-MX30",
-    "nombre": "Speedster",
-    "precio": 189.99,
-    "marca": "SHAFT",
-    "tipo": "Off-Road",
-    "hologacion": "EC22-05",
-	"material":"ABS",
-    "imagen": "https://shafthelmets.com/wp-content/uploads/SHAFT_MX30-SPEEDSTERROJO-LATERAL-IZQUIERDA.png"
-  },
-  {
-	"codigo": "ICH-503",
-    "nombre": "ICH 503",
-    "precio": 39.99,
-    "marca": "ICH",
-    "tipo": "Integral",
-    "hologacion": "DOT",
-	"material":"ABS",
-    "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0005_ICH-503-SP-NM-AZ-LAT-3.4-DER.png"
-  },
-  {
-	"codigo": "ICH-205",
-    "nombre": "ICH 205",
-    "precio": 59.99,
-    "marca": "ICH",
-    "tipo": "Abierto",
-    "hologacion": "DOT",
-	"material":"ABS",
-    "imagen": "https://ichhelmets.com/wp-content/uploads/2025/06/0006_ICH.205.SOLID_.AZ_.SL_.V.SM_.CL_.IR_.SL_.LAT_.png"
-  },
-  {
-	"codigo": "ICH-3120",
-    "nombre": "ICH 3120",
-    "precio": 49.99,
-    "marca": "ICH",
-    "tipo": "Abatible",
-    "hologacion": "DOT",
-	"material":"ABS",
-    "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0000_ICH-3120-HURS-NB-VD.N-LATERAL-IZQ.png"
-  },
-  {
-	"codigo": "FF353",
-    "nombre": "Rapid II XDRON",
-    "precio": 109.99,
-    "marca": "LS2",
-    "tipo": "Integral",
-    "hologacion": "EC22-06",
-	"material":"HPTT",
-    "imagen": "https://static.ls2helmets.com/items/163535002/1635350021726846227.png"
-  },
-   {
-	"codigo": "FF353",
-    "nombre": "Rapid II Solid",
-    "precio": 99.99,
-    "marca": "LS2",
-    "tipo": "Integral",
-    "hologacion": "EC22-06",
-	"material":"HPTT",
-    "imagen": "https://www.zr24.de/media/image/17/b3/d4/FF353_RAPID_SOLID_MATT_BLACK_103531011_A_67811_675x700.png"
-  }
-	]
+    "cascos": [
+        {
+            "codigo": "SH-522",
+            "nombre": "Neuroo",
+            "precio": 89.99,
+            "marca": "SHAFT",
+            "tipo": "Integral",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SH-522-NEUROO-NB-NEGRO-AMARILLO-LATERAL.png"
+        },
+        {
+            "codigo": "SH-3690 DV",
+            "nombre": "Neon",
+            "precio": 149.99,
+            "marca": "SHAFT",
+            "tipo": "Abatible",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/SH_3690-GP-NEON-AMARILLO-LATERAL-IZQUIERDO.png"
+        },
+        {
+            "codigo": "SH-582 SP",
+            "nombre": "Handmade",
+            "precio": 99.99,
+            "marca": "SHAFT",
+            "tipo": "Integral",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/0000_SHAFT-582_SP-HANDMADE.NJ_.N.M.AZ_.LATERAL.png"
+        },
+        {
+            "codigo": "SH-MX30",
+            "nombre": "Speedster",
+            "precio": 189.99,
+            "marca": "SHAFT",
+            "tipo": "Off-Road",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/SHAFT_MX30-SPEEDSTERROJO-LATERAL-IZQUIERDA.png"
+        },
+		{
+            "codigo": "SH-MX380-DV",
+            "nombre": "Split",
+            "precio": 229.99,
+            "marca": "SHAFT",
+            "tipo": "Off-Road",
+            "hologacion": "EC22-05",
+            "material": "ABS",
+            "imagen": "https://shafthelmets.com/wp-content/uploads/SH-MX380DV_SPLIT_Titanium-Matt_Black_V1.png"
+        },
+        {
+            "codigo": "ICH-503",
+            "nombre": "ICH 503",
+            "precio": 39.99,
+            "marca": "ICH",
+            "tipo": "Integral",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0005_ICH-503-SP-NM-AZ-LAT-3.4-DER.png"
+        },
+        {
+            "codigo": "ICH-205",
+            "nombre": "ICH 205",
+            "precio": 59.99,
+            "marca": "ICH",
+            "tipo": "Abierto",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://ichhelmets.com/wp-content/uploads/2025/06/0006_ICH.205.SOLID_.AZ_.SL_.V.SM_.CL_.IR_.SL_.LAT_.png"
+        },
+        {
+            "codigo": "ICH-3120",
+            "nombre": "ICH 3120",
+            "precio": 49.99,
+            "marca": "ICH",
+            "tipo": "Abatible",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://ichhelmets.com/wp-content/uploads/2022/05/0000_ICH-3120-HURS-NB-VD.N-LATERAL-IZQ.png"
+        },
+        {
+            "codigo": "FF353",
+            "nombre": "Rapid II XDRON",
+            "precio": 109.99,
+            "marca": "LS2",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "HPTT",
+            "imagen": "https://static.ls2helmets.com/items/163535002/1635350021726846227.png"
+        },
+		{
+            "codigo": "FF808",
+            "nombre": "Stream II Road",
+            "precio": 149.99,
+            "marca": "LS2",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "KPA",
+            "imagen": "https://probikerhelmets.com/wp-content/uploads/2025/07/1680823111726845888_600.webp"
+        },
+		{
+            "codigo": "FF811",
+            "nombre": "Vector II Freedom",
+            "precio": 259.99,
+            "marca": "LS2",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "HPFC",
+            "imagen": "https://static.ls2helmets.com/items/168113011/1681130111726845701.png"
+        },
+		{
+            "codigo": "FF906",
+            "nombre": "Advant IRON",
+            "precio": 299.99,
+            "marca": "LS2",
+            "tipo": "Abatible",
+            "hologacion": "EC22-06",
+            "material": "KPA",
+            "imagen": "https://static.ls2helmets.com/items/processed/569063612/white/jpg/5690636121726859114_600.jpg"
+        },
+		{
+            "codigo": "OF603",
+            "nombre": "Infinity II FOCUS",
+            "precio": 119.99,
+            "marca": "LS2",
+            "tipo": "Abierto",
+            "hologacion": "EC22-06",
+            "material": "HPFC",
+            "imagen": "https://static.ls2helmets.com/items/366032331/3660323311726904407.png"
+        },
+		{
+            "codigo": "MX702",
+            "nombre": "Pionner II Hill",
+            "precio": 189.99,
+            "marca": "LS2",
+            "tipo": "Off-Road",
+            "hologacion": "EC22-06",
+            "material": "KPA",
+            "imagen": "https://static.ls2helmets.com/items/processed/467022232/white/jpg/4670222321726908440_600.jpg"
+        },
+        {
+            "codigo": "HRO-3440-DV",
+            "nombre": "HRO 3440 DV",
+            "precio": 59.99,
+            "marca": "HRO",
+            "tipo": "Abatible",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://hrohelmets.com/wp-content/uploads/0006_HRO-3440DV-SOLID-NM-LAT.png"
+        },
+        {
+            "codigo": "HRO-MX03",
+            "nombre": "HRO MX03",
+            "precio": 119.99,
+            "marca": "HRO",
+            "tipo": "Off-Road",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://hrohelmets.com/wp-content/uploads/HRO_MX03_03.png"
+        },
+        {
+            "codigo": "HRO-518",
+            "nombre": "HRO 518",
+            "precio": 69.99,
+            "marca": "HRO",
+            "tipo": "Integral",
+            "hologacion": "DOT",
+            "material": "ABS",
+            "imagen": "https://hrohelmets.com/wp-content/uploads/0003_HRO-518_DV-STOPER-N.M.AZ_.LATERAL.png"
+        },
+        {
+            "codigo": "K3",
+            "nombre": "K3 DECEPT MATT",
+            "precio": 349.99,
+            "marca": "AGV",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "Termoplástico",
+            "imagen": "https://dainese-cdn.thron.com/delivery/public/image/dainese/e76fc92a-d27d-40e3-a599-5671b9d30525/px6qct/std/1920xundefined/2118381004_010_4.png"
+        },
+        {
+            "codigo": "TT-REVO",
+            "nombre": "TT REVO",
+            "precio": 149.99,
+            "marca": "KYT",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "ADT",
+            "imagen": "https://kytamericas.com/cdn/shop/files/Y6TR0020-TTREVO-FUSELAGE_RED_4_copy.webp?v=1743659911"
+        },
+		{
+            "codigo": "R2R",
+            "nombre": "R2R Graphic",
+            "precio": 149.99,
+            "marca": "KYT",
+            "tipo": "Integral",
+            "hologacion": "EC22-06",
+            "material": "ADT",
+            "imagen": "https://kytamericas.com/cdn/shop/files/Y6R20005-R2RMAX-ASSAULT_MATT_ARMY_GREEN_2_copy.webp?v=1744837166"
+        }
+    ]
 }
