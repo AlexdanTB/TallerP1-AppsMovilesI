@@ -1,11 +1,28 @@
 import { Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import datos from "../assets/data/cascos.json"
 import CascoItem from '../components/CascoItem';
 import LogoImagen from '../components/LogoImagen';
+import TipoSelector from '../components/TipoSelector';
 
 export default function HomeScreen() {
   const cascos = datos;
+
+  const [tiposel, settiposel] = useState(null)
+  const cascosFiltrados = tiposel
+    ? cascos.cascos.filter(p => p.tipo === tiposel)
+    : cascos.cascos;
+
+  const tomarTipo = (type)=>{
+    if (type === 'Todos') {
+    settiposel(null);
+  } else {
+    settiposel(type);
+  }
+
+  };
+
+
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
       <View>
@@ -14,25 +31,14 @@ export default function HomeScreen() {
       <View>
         <Text style={{fontWeight:"bold", fontSize:15, margin:8}}>TIPOS DE CASCOS</Text>
         <View style={styles.tcv}>
-          <TouchableOpacity style={{backgroundColor:"#C6F432", margin:5, padding:5}}>
-            <Text>Todos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tcbtn}>
-            <Text>Abatibles</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tcbtn}>
-            <Text>Abierto</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tcbtn}>
-            <Text>Integrales</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tcbtn}>
-            <Text>Off-Road</Text>
-          </TouchableOpacity>
+
+          <TipoSelector seleccion={tomarTipo}/>
+
+         
         </View>
         <View style={styles.vcascos}>
           <FlatList style={styles.fl}
-            data={cascos.cascos}
+            data={cascosFiltrados}
             numColumns={2}
             contentContainerStyle={{alignItems: 'center'}}
             renderItem={({item}) =>
@@ -68,6 +74,9 @@ const styles = StyleSheet.create({
       margin:5,
       padding:5,
       borderRadius:5
+    },
+    tcbtnP:{
+      backgroundColor:"#C6F432", margin:5, padding:5   
     },
     vcascos:{
       padding:3,

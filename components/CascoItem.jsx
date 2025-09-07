@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import LogoImagen from '../components/LogoImagen'
 
 export default function CascoItem(cascos) {
-    console.log(cascos.csc.nombre);
     const [mostrar, setMostrar] = useState(false)
   return (
     <TouchableOpacity style={styles.toc} onPress={()=> setMostrar(true)}>
