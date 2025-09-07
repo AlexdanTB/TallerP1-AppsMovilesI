@@ -12,7 +12,7 @@ export default function HomeScreen() {
         <LogoImagen/>
       </View>
       <View>
-        <Text style={{fontWeight:"bold", fontSize:18, margin:8}}>TIPOS DE CASCOS</Text>
+        <Text style={{fontWeight:"bold", fontSize:15, margin:8}}>TIPOS DE CASCOS</Text>
         <View style={styles.tcv}>
           <TouchableOpacity style={{backgroundColor:"#C6F432", margin:5, padding:5}}>
             <Text>Todos</Text>
