@@ -1,5 +1,5 @@
 import { Alert, Button, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import datos from "../assets/data/cascos.json"
 import CascoItem from '../components/CascoItem';
 import LogoImagen from '../components/LogoImagen';
@@ -7,8 +7,6 @@ import TipoSelector from '../components/TipoSelector';
 
 export default function HomeScreen() {
   const cascos = datos;
-
-  const [carrito, setcarrito] = useState([])
 
   const [tiposel, settiposel] = useState(null)
   const cascosFiltrados = tiposel
@@ -23,11 +21,6 @@ export default function HomeScreen() {
   }
 
   };
-
-  const agregarCarrito = (item)=>{
-    setcarrito([...carrito, item])
-    Alert.alert("Agregado", "Se ha agregado al carrito")
-  }
 
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>

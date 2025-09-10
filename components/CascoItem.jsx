@@ -1,8 +1,10 @@
 import { Button, Image, Modal, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import LogoImagen from '../components/LogoImagen'
+import { CarritoContx } from '../App'
 
 export default function CascoItem(cascos) {
+    const {agregarCarrito} = useContext(CarritoContx)
     const [mostrar, setMostrar] = useState(false)
   return (
     <TouchableOpacity style={styles.toc} onPress={()=> setMostrar(true)}>
@@ -60,11 +62,9 @@ export default function CascoItem(cascos) {
                     <Button title='Volver' color="#000000"
                     onPress={()=> setMostrar(false)}/>
                 </View>
-                <TouchableOpacity style={styles.btnCompra} onPress={(texto)=> {
-                    texto = cascos.csc.codigo+"\nNombre: "+cascos.csc.nombre+"\nMarca: "+cascos.csc.marca+"\nTipo: "+cascos.csc.tipo+"\nHomologación: "+cascos.csc.hologacion+"\nPrecio: "+cascos.csc.precio;
-                    Share.share({message: texto})}}
-                    
-                    >
+                <TouchableOpacity style={styles.btnCompra} onPress={()=> {
+                    agregarCarrito(cascos.csc)
+                }}>
                     <Text style={{fontWeight:"bold", fontSize:17}}>COMPRAR</Text>
                 </TouchableOpacity>
             </View>

@@ -1,11 +1,11 @@
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import LogoImagen from '../components/LogoImagen'
 import ItemCarrito from "../components/ItemCarrito"
-import datos from "../assets/data/carrito.json"
+import { CarritoContx } from '../App'
 
 export default function CarritoScreen() {
-  const items = datos;
+  const {carrito} = useContext(CarritoContx)
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
       <View>
@@ -17,7 +17,7 @@ export default function CarritoScreen() {
       <View style={styles.view2}>
 
         <FlatList style={{height:"40%"}}
-          data={items.carrito}
+          data={carrito}
           renderItem={({item})=>
             <ItemCarrito csc = {item}/>
           }      

@@ -1,13 +1,11 @@
 import { Alert, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function ItemCarrito(cascos) {
+    const [subtotal, setsubtotal] = useState()
     console.log(cascos.csc.codigo)
   return (
-    <TouchableOpacity style={styles.to} onLongPress={(texto)=>{
-        texto = "\nNombre: "+cascos.csc.nombre+"\nMarca: "+cascos.csc.marca+"\nTipo: "+cascos.csc.tipo+"\nHomologación: "+cascos.csc.hologacion+"\nPrecio: "+cascos.csc.precio;
-        Alert.alert(cascos.csc.codigo,texto);
-    }}>
+    <TouchableOpacity style={styles.to}>
         <View>
             <Image style={styles.img} source={{uri: cascos.csc.imagen}}/>
         </View>
