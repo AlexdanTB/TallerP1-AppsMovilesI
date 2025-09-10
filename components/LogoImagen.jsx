@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginLeft:5
   },
   view:{
+    marginTop:25,
     backgroundColor:"#ffffff",
     flexDirection:"row"
   },

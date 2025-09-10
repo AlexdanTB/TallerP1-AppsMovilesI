@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator()
 
 function MyTabs(){
     return(
-        <Tab.Navigator initialRouteName="Home" screenOptions={{tabBarStyle: {backgroundColor: "#C6F432"}}}>
+        <Tab.Navigator initialRouteName="Home" screenOptions={{tabBarStyle: {backgroundColor: "#C6F432"}, headerShown: false}}>
             <Tab.Screen name="Home" component={HomeScreen}
             options={{
                 tabBarActiveTintColor:"#000000",
@@ -22,7 +22,8 @@ function MyTabs(){
              options={{
                 tabBarActiveTintColor:"#000000",
                 tabBarInactiveTintColor:"#5c6833ff",
-                tabBarIcon: ()=> <Entypo name="shopping-cart" size={24} color="black" />
+                tabBarIcon: ()=> <Entypo name="shopping-cart" size={24} color="black"
+                bar/>
             }}/>
             <Tab.Screen name="Usuario" component={UsuarioScreen}
              options={{
