@@ -6,6 +6,9 @@ import { CarritoContx } from '../App'
 
 export default function CarritoScreen() {
   const {carrito} = useContext(CarritoContx)
+  const total = carrito.reduce((suma, item) => suma + (item.precio || 0), 0);
+  const iva = total*0.15;
+  const subtotal = total-iva;
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
       <View>
@@ -26,14 +29,16 @@ export default function CarritoScreen() {
         <View style={{flexDirection:"row", padding:6, justifyContent:"space-between"}}>
           <View>
             <Text>Subtotal de productos:</Text>
+            <Text>IVA:</Text>
             <Text>Descuentos:</Text>
             <Text style={styles.txtpagar}>TOTAL A PAGAR:</Text>
           </View>
           <View>
             <View>
-              <Text style={{fontWeight:"500"}}>$109.99</Text>
+              <Text style={{fontWeight:"500"}}>${subtotal.toFixed(2)}</Text>
+              <Text>${iva.toFixed(2)}</Text>
               <Text style={{fontWeight:"500"}}>$0.00</Text>
-              <Text style={styles.txtpagar}>$109.99</Text>
+              <Text style={styles.txtpagar}>${total.toFixed(2)}</Text>
             </View>
           </View>          
         </View>
