@@ -13,6 +13,9 @@ export default function ItemCarrito(cascos) {
             <View>
                 <Text style={{fontWeight:"500"}}>{cascos.csc.nombre}</Text>
                 <Text style={{fontSize:13}}>{cascos.csc.codigo}</Text>
+                {cascos.csc.talla && (
+                <Text style={{fontSize:13}}>Talla: {cascos.csc.talla}</Text>
+           )}
             </View>
             <View style={styles.v2}>
                 <Text style={styles.tprecios}>${cascos.csc.precio}</Text>

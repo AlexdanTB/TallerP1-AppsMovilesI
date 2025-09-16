@@ -6,6 +6,7 @@ import { CarritoContx } from '../App'
 export default function CascoItem(cascos) {
     const {agregarCarrito} = useContext(CarritoContx)
     const [mostrar, setMostrar] = useState(false)
+    const [talla, setTalla] = useState(null) 
   return (
     <TouchableOpacity style={styles.toc} onPress={()=> setMostrar(true)}>
         <Image style={styles.img} source={{uri: cascos.csc.imagen}}/>
@@ -49,10 +50,28 @@ export default function CascoItem(cascos) {
                         </View>
                     </View>
 
-                    <View>
-                        <Text>Seleccione la talla</Text>
-                        <Text>S     M      L     XL </Text>
-                    </View>
+<View>
+    <Text>Seleccione la talla:</Text>
+    <View style={{flexDirection:"row", marginVertical:5}}>
+      {["S","M","L","XL"].map(t => (
+        <TouchableOpacity 
+          key={t} 
+          style={{
+            marginHorizontal:8, 
+            padding:6, 
+            borderWidth:1, 
+            borderColor: talla===t ? "#C6F432" : "#ccc", 
+            backgroundColor: talla===t ? "#C6F432" : "#fff",
+            borderRadius:5
+          }}
+          onPress={()=> setTalla(t)}
+        >
+          <Text style={{fontWeight:"bold"}}>{t}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    {talla && <Text style={{marginTop:5}}>Talla seleccionada: <Text style={{fontWeight:"bold"}}>{talla}</Text></Text>}
+</View>
 
                 </View>
             </View>
@@ -64,6 +83,7 @@ export default function CascoItem(cascos) {
                 </View>
                 <TouchableOpacity style={styles.btnCompra} onPress={()=> {
                     agregarCarrito(cascos.csc)
+                    agregarCarrito({...cascos.csc, talla})
                 }}>
                     <Text style={{fontWeight:"bold", fontSize:17}}>COMPRAR</Text>
                 </TouchableOpacity>
