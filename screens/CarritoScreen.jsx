@@ -5,10 +5,12 @@ import ItemCarrito from "../components/ItemCarrito"
 import { CarritoContx } from '../App'
 
 export default function CarritoScreen() {
-  const {carrito} = useContext(CarritoContx)
-  const total = carrito.reduce((suma, item) => suma + (item.precio || 0), 0);
+  const {carrito, setCarrito} = useContext(CarritoContx)
+  
+const total = carrito.reduce((suma, item) => suma + ((item.precio || 0) * (item.cantidad || 1)), 0);
   const iva = total*0.15;
   const subtotal = total-iva;
+  
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
       <View>

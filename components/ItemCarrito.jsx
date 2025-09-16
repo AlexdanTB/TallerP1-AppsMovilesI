@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 export default function ItemCarrito(cascos) {
     const [subtotal, setsubtotal] = useState()
+    const [cantidad, setCantidad] = useState(1)
     console.log(cascos.csc.codigo)
   return (
     <TouchableOpacity style={styles.to}>
@@ -15,16 +16,30 @@ export default function ItemCarrito(cascos) {
                 <Text style={{fontSize:13}}>{cascos.csc.codigo}</Text>
                 {cascos.csc.talla && (
                 <Text style={{fontSize:13}}>Talla: {cascos.csc.talla}</Text>
-           )}
+                )}
             </View>
             <View style={styles.v2}>
-                <Text style={styles.tprecios}>${cascos.csc.precio}</Text>
-                <View style={styles.vm}>
-                    <Button title='-' color="#deddddff"></Button>
-                    <Text style={{fontWeight:"bold", fontSize:14, marginHorizontal:8}}>1</Text>
-                    <Button title='+' color="#C6F432"></Button>
-                </View>
-            </View>
+                <Text style={styles.tprecios}>
+                 ${ (cascos.csc.precio * cantidad).toFixed(2) }
+                </Text>
+                 <View style={styles.vm}>
+        <Button 
+            title='-' 
+            color="#deddddff" 
+            onPress={() => {
+                if(cantidad > 1) setCantidad(cantidad - 1)
+            }} 
+        />
+        <Text style={{fontWeight:"bold", fontSize:14, marginHorizontal:8}}>
+            {cantidad}
+        </Text>
+        <Button 
+            title='+' 
+            color="#C6F432" 
+            onPress={() => setCantidad(cantidad + 1)} 
+        />
+        </View>
+        </View>
         </View>
     </TouchableOpacity>
   )
