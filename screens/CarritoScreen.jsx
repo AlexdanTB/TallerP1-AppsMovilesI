@@ -1,15 +1,20 @@
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from "react";
 import LogoImagen from '../components/LogoImagen'
 import ItemCarrito from "../components/ItemCarrito"
 import { CarritoContx } from '../App'
 
+
+
 export default function CarritoScreen() {
   const {carrito, setCarrito} = useContext(CarritoContx)
   
-const total = carrito.reduce((suma, item) => suma + ((item.precio || 0) * (item.cantidad || 1)), 0);
-  const iva = total*0.15;
-  const subtotal = total-iva;
+const subtotal = carrito.reduce(
+  (suma, item) => suma + (item.precio || 0) * (item.cantidad || 1),
+  0
+);
+const iva = subtotal * 0.15;
+const total = subtotal + iva;
   
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
