@@ -7,7 +7,7 @@ import TipoSelector from '../components/TipoSelector';
 
 export default function HomeScreen() {
   const cascos = datos;
-
+ const [busqueda, setBusqueda] = useState('');
   const [tiposel, settiposel] = useState(null)
   const cascosFiltrados = tiposel
     ? cascos.cascos.filter(p => p.tipo === tiposel)

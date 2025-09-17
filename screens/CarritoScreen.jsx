@@ -8,13 +8,35 @@ import { CarritoContx } from '../App'
 
 export default function CarritoScreen() {
   const {carrito, setCarrito} = useContext(CarritoContx)
-  
-const subtotal = carrito.reduce(
-  (suma, item) => suma + (item.precio || 0) * (item.cantidad || 1),
-  0
-);
-const iva = subtotal * 0.15;
-const total = subtotal + iva;
+  const [compraCompletada, setCompraCompletada] = useState(false);
+  const subtotal = carrito.reduce(
+    (sum, item) => sum + (item.precio || 0) * (item.cantidad || 1),
+    0
+  );
+  const iva = subtotal * 0.15;
+  const total = subtotal + iva;
+
+  const manejarPago = () => {
+    setCompraCompletada(true);
+    setCarrito([]);
+  };
+if (compraCompletada) {
+  return (
+    <View style={styles.confirmacionContainer}>
+      <Text style={styles.confirmacionTitulo}>¡Gracias por su compra!</Text>
+      <Text style={styles.confirmacionTexto}>Su pedido ha sido procesado con éxito.</Text>
+      <View style={styles.detalleContainer}>
+        <Text style={styles.detalleTitulo}>Resumen de la compra:</Text>
+        <Text>Subtotal: ${subtotal.toFixed(2)}</Text>
+        <Text>IVA: ${iva.toFixed(2)}</Text>
+        <Text style={styles.detalleTotal}>Total: ${total.toFixed(2)}</Text>
+      </View>
+      <View style={styles.btnVolver}>
+        <Button title="VOLVER" color="#010101ff" onPress={() => setCompraCompletada(false)} />
+      </View>
+    </View>
+  );
+}
   
   return (
     <View style={{backgroundColor:"#f9f9f9ff"}}>
@@ -50,7 +72,7 @@ const total = subtotal + iva;
           </View>          
         </View>
         <View style={styles.btnp}>
-          <Button title="PAGAR" color="#010101ff"></Button>
+           <Button title="PAGAR" color="#010101ff" onPress={manejarPago}></Button>
         </View>
       </View>
       </View>
@@ -77,5 +99,39 @@ const styles = StyleSheet.create({
   btnp:{
     margin:5,
     paddingHorizontal:5
-  }
+  },
+  confirmacionContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f9f9f9ff',
+    padding: 20,
+  },
+  confirmacionTitulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'green',
+    marginBottom: 10,
+  },
+  confirmacionTexto: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  detalleContainer: {
+    backgroundColor: '#e0e0e0',
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+  },
+  detalleTitulo: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  detalleTotal: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
 })
