@@ -7,7 +7,7 @@ import { CarritoContx } from '../App'
 
 
 export default function CarritoScreen() {
-  const {carrito, setCarrito} = useContext(CarritoContx)
+const { carrito, setcarrito } = useContext(CarritoContx);
   const [compraCompletada, setCompraCompletada] = useState(false);
   const subtotal = carrito.reduce(
     (sum, item) => sum + (item.precio || 0) * (item.cantidad || 1),
@@ -48,12 +48,19 @@ if (compraCompletada) {
       </View>
       <View style={styles.view2}>
 
-        <FlatList style={{height:"40%"}}
-          data={carrito}
-          renderItem={({item})=>
-            <ItemCarrito csc = {item}/>
-          }      
-        />
+         <View style={{alignItems: "flex-end", margin: 8}}>
+    <Button
+  title="Eliminar todo"
+  color="#d32f2f"
+  onPress={() => setcarrito([])}
+/>
+  </View>
+  <FlatList style={{height:"40%"}}
+    data={carrito}
+    renderItem={({item})=>
+      <ItemCarrito csc = {item}/>
+    }      
+  />
       <View style={styles.viewpagar}>
         <View style={{flexDirection:"row", padding:6, justifyContent:"space-between"}}>
           <View>
