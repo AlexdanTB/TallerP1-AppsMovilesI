@@ -4,19 +4,20 @@ import HomeScreen from './screens/HomeScreen';
 import NavegadorBottom from './navigations/BottomTab';
 import React, { createContext, useContext, useState } from 'react';
 
+
 export const CarritoContx = createContext();
-export function CarritoProv({children}){
-  const [carrito, setcarrito] = useState([])
-  const agregarCarrito = (item) =>{
-    setcarrito([...carrito, item])
-    Alert.alert("Agregado", "Se agregó al carrito")
-    console.log(carrito)
-  }
-  return(
-    <CarritoContx.Provider value={{carrito, agregarCarrito}}>
+export function CarritoProv({children}) {
+  const [carrito, setcarrito] = useState([]);
+  const agregarCarrito = (item) => {
+    setcarrito([...carrito, item]);
+    Alert.alert("Agregado", "Se agregó al carrito");
+    console.log(carrito);
+  };
+  return (
+    <CarritoContx.Provider value={{ carrito, agregarCarrito, setcarrito }}>
       {children}
     </CarritoContx.Provider>
-  )
+  );
 }
 
 export default function App() {
