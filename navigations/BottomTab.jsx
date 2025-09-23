@@ -8,9 +8,23 @@ import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import UsuarioScreen from "../screens/UsuarioScreen";
 import { CarritoContx } from "../App";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "../screens/LoginScreen";
+import RegistroScreen from "../screens/RegistroScreen";
 
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator();
+
+function MyStack(){
+  return(
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={LoginScreen}/>
+      <Stack.Screen name="Registro" component={RegistroScreen}/>
+      <Stack.Screen name="Tabs" component={MyTabs}/>
+    </Stack.Navigator>
+  )
+}
 
 function MyTabs() {
   const { carrito } = useContext(CarritoContx);
@@ -69,7 +83,7 @@ function MyTabs() {
 export default function NavegadorBottom() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <MyStack/>
     </NavigationContainer>
   )
 }

@@ -12,9 +12,9 @@ export default function LoginScreen({navigation}) {
           <Text>Contraseña</Text>
           <TextInput secureTextEntry={true}></TextInput>
         </View>
-          <TouchableOpacity>
-          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('Tabs')}>
             <Text>INGRESAR</Text>
+          </TouchableOpacity>            
         <TouchableOpacity onPress={()=> navigation.navigate('Registro')}>
           <Text>¿No tienes cuenta? Registrate aquí</Text>
         </TouchableOpacity>
