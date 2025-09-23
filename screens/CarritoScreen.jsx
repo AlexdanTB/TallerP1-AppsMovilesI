@@ -7,82 +7,98 @@ import { CarritoContx } from '../App'
 
 
 export default function CarritoScreen() {
-  const { carrito, setcarrito } = useContext(CarritoContx);
-  const [compraCompletada, setCompraCompletada] = useState(false);
-  const total = carrito.reduce((suma, item) => suma + (item.precio || 0), 0);
-  const iva = total*0.15;
-  const subtotal = total-iva;
+    const { carrito, setcarrito } = useContext(CarritoContx);
+    const [compraCompletada, setCompraCompletada] = useState(false);
+    const [resumenCompra, setResumenCompra] = useState({ total: 0, subtotal: 0, iva: 0 });
 
-  const manejarPago = () => {
-    setCompraCompletada(true);
-    setcarrito([])
-  };
-  if (compraCompletada) {
+    const total = carrito.reduce((suma, item) => suma + (item.precio * (item.cantidad || 1)), 0);
+    const iva = total * 0.15;
+    const subtotal = total - iva;
+
+    const manejarPago = () => {
+        setResumenCompra({
+            total: total,
+            subtotal: subtotal,
+            iva: iva,
+        });
+        setCompraCompletada(true);
+        setcarrito([]);
+    };
+
+    const handleUpdateQuantity = (codigo, nuevaCantidad) => {
+        const nuevoCarrito = carrito.map(item => {
+            if (item.codigo === codigo) {
+                return { ...item, cantidad: nuevaCantidad };
+            }
+            return item;
+        });
+        setcarrito(nuevoCarrito);
+    };
+
+    if (compraCompletada) {
+        return (
+            <View style={styles.confirmacionContainer}>
+                <Text style={styles.confirmacionTitulo}>¡Gracias por su compra!</Text>
+                <Text style={styles.confirmacionTexto}>Su pedido ha sido procesado con éxito.</Text>
+                <View style={styles.detalleContainer}>
+                    <Text style={styles.detalleTitulo}>Resumen de la compra:</Text>
+                    <Text>Subtotal: ${resumenCompra.subtotal.toFixed(2)}</Text>
+                    <Text>IVA: ${resumenCompra.iva.toFixed(2)}</Text>
+                    <Text style={styles.detalleTotal}>Total: ${resumenCompra.total.toFixed(2)}</Text>
+                </View>
+                <View style={styles.btnVolver}>
+                    <Button title="VOLVER" color="#010101ff" onPress={() => setCompraCompletada(false)} />
+                </View>
+            </View>
+        );
+    }
+
     return (
-      <View style={styles.confirmacionContainer}>
-        <Text style={styles.confirmacionTitulo}>¡Gracias por su compra!</Text>
-        <Text style={styles.confirmacionTexto}>Su pedido ha sido procesado con éxito.</Text>
-        <View style={styles.detalleContainer}>
-          <Text style={styles.detalleTitulo}>Resumen de la compra:</Text>
-          <Text>Subtotal: ${subtotal.toFixed(2)}</Text>
-          <Text>IVA: ${iva.toFixed(2)}</Text>
-          <Text style={styles.detalleTotal}>Total: ${total.toFixed(2)}</Text>
+        <View style={{ backgroundColor: "#f9f9f9ff" }}>
+            <View>
+                <LogoImagen txt="CARRITO DE COMPRAS" />
+            </View>
+            <View>
+                <Text style={{ fontWeight: "bold", fontSize: 15, padding: 3, margin: 8 }}>Productos seleccionados</Text>
+            </View>
+            <View style={styles.view2}>
+                <View style={{ alignItems: "flex-end", margin: 8 }}>
+                    <Button
+                        title="Eliminar todo"
+                        color="#d32f2f"
+                        onPress={() => setcarrito([])}
+                    />
+                </View>
+                <FlatList style={{ height: "40%" }}
+                    data={carrito}
+                    renderItem={({ item }) =>
+                        <ItemCarrito csc={item} onUpdateQuantity={handleUpdateQuantity} />
+                    }
+                />
+                <View style={styles.viewpagar}>
+                    <View style={{ flexDirection: "row", padding: 6, justifyContent: "space-between" }}>
+                        <View>
+                            <Text>Subtotal de productos:</Text>
+                            <Text>IVA:</Text>
+                            <Text>Descuentos:</Text>
+                            <Text style={styles.txtpagar}>TOTAL A PAGAR:</Text>
+                        </View>
+                        <View>
+                            <View>
+                                <Text style={{ fontWeight: "500" }}>${subtotal.toFixed(2)}</Text>
+                                <Text>${iva.toFixed(2)}</Text>
+                                <Text style={{ fontWeight: "500" }}>$0.00</Text>
+                                <Text style={styles.txtpagar}>${total.toFixed(2)}</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.btnp}>
+                        <Button title="PAGAR" color="#010101ff" onPress={manejarPago}></Button>
+                    </View>
+                </View>
+            </View>
         </View>
-        <View style={styles.btnVolver}>
-          <Button title="VOLVER" color="#010101ff" onPress={() => setCompraCompletada(false)} />
-        </View>
-      </View>
     );
-  }
-
-  return (
-    <View style={{ backgroundColor: "#f9f9f9ff" }}>
-      <View>
-        <LogoImagen txt="CARRITO DE COMPRAS" />
-      </View>
-      <View>
-        <Text style={{ fontWeight: "bold", fontSize: 15, padding: 3, margin: 8 }}>Productos seleccionados</Text>
-      </View>
-      <View style={styles.view2}>
-
-        <View style={{ alignItems: "flex-end", margin: 8 }}>
-          <Button
-            title="Eliminar todo"
-            color="#d32f2f"
-            onPress={() => setcarrito([])}
-          />
-        </View>
-        <FlatList style={{ height: "40%" }}
-          data={carrito}
-          renderItem={({ item }) =>
-            <ItemCarrito csc={item} />
-          }
-        />
-        <View style={styles.viewpagar}>
-          <View style={{ flexDirection: "row", padding: 6, justifyContent: "space-between" }}>
-            <View>
-              <Text>Subtotal de productos:</Text>
-              <Text>IVA:</Text>
-              <Text>Descuentos:</Text>
-              <Text style={styles.txtpagar}>TOTAL A PAGAR:</Text>
-            </View>
-            <View>
-              <View>
-                <Text style={{ fontWeight: "500" }}>${subtotal.toFixed(2)}</Text>
-                <Text>${iva.toFixed(2)}</Text>
-                <Text style={{ fontWeight: "500" }}>$0.00</Text>
-                <Text style={styles.txtpagar}>${total.toFixed(2)}</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.btnp}>
-            <Button title="PAGAR" color="#010101ff" onPress={manejarPago}></Button>
-          </View>
-        </View>
-      </View>
-
-    </View>
-  )
 }
 
 const styles = StyleSheet.create({

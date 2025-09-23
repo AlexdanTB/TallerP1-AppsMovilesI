@@ -1,31 +1,54 @@
 import { Alert, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function ItemCarrito(cascos) {
-    console.log(cascos.csc.codigo)
-  return (
-    <TouchableOpacity style={styles.to}>
-        <View>
-            <Image style={styles.img} source={{uri: cascos.csc.imagen}}/>
-        </View>
-        <View>
+export default function ItemCarrito({ csc, onUpdateQuantity }) {
+    const [cantidad, setCantidad] = useState(csc.cantidad || 1);
+
+    // Usa useEffect para sincronizar el estado local con el prop del padre
+    useEffect(() => {
+        setCantidad(csc.cantidad || 1);
+    }, [csc.cantidad]); // Se activa cada vez que csc.cantidad cambia
+
+    const handleIncrement = () => {
+        const nuevaCantidad = cantidad + 1;
+        // Llama a la función del padre para actualizar el carrito
+        onUpdateQuantity(csc.codigo, nuevaCantidad);
+    };
+
+    const handleDecrement = () => {
+        if (cantidad > 1) {
+            const nuevaCantidad = cantidad - 1;
+            // Llama a la función del padre para actualizar el carrito
+            onUpdateQuantity(csc.codigo, nuevaCantidad);
+        } else {
+            // Opcional: Eliminar el item si la cantidad llega a 0
+            // onUpdateQuantity(csc.codigo, 0); 
+            Alert.alert("Aviso", "No puedes tener menos de un producto.");
+        }
+    };
+
+    return (
+        <TouchableOpacity style={styles.to}>
             <View>
-                <Text style={{fontWeight:"500"}}>{cascos.csc.nombre}</Text>
-                <Text style={{fontSize:13}}>{cascos.csc.codigo}</Text>
+                <Image style={styles.img} source={{ uri: csc.imagen }} />
             </View>
-            <View style={styles.v2}>
-                <Text style={styles.tprecios}>${cascos.csc.precio}</Text>
-                <View style={styles.vm}>
-                    <Button title='-' color="#deddddff"></Button>
-                    <Text style={{fontWeight:"bold", fontSize:14, marginHorizontal:8}}>1</Text>
-                    <Button title='+' color="#C6F432"></Button>
+            <View>
+                <View>
+                    <Text style={{ fontWeight: "500" }}>{csc.nombre}</Text>
+                    <Text style={{ fontSize: 13 }}>{csc.codigo}</Text>
+                </View>
+                <View style={styles.v2}>
+                    <Text style={styles.tprecios}>${(csc.precio * cantidad).toFixed(2)}</Text>
+                    <View style={styles.vm}>
+                        <Button title='-' color="#deddddff" onPress={handleDecrement} />
+                        <Text style={{ fontWeight: "bold", fontSize: 14, marginHorizontal: 8 }}>{cantidad}</Text>
+                        <Button title='+' color="#C6F432" onPress={handleIncrement} />
+                    </View>
                 </View>
             </View>
-        </View>
-    </TouchableOpacity>
-  )
+        </TouchableOpacity>
+    );
 }
-
 const styles = StyleSheet.create({
     to:{
         flexDirection:"row",
