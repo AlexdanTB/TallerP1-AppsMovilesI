@@ -7,20 +7,24 @@ export default function Pedido({visible, pedido, cerrar}) {
         <Modal visible={visible} transparent={true}>
             <View style={styles.modalv1}>
                 <View style={styles.modalc}>
-                    <Text style={styles.titulo}>Pedido del {new Date(pedido.fecha).toLocaleString()}</Text>
+                    <Text style={styles.titulo}>Pedido: {new Date(pedido.fecha).toLocaleString()}</Text>
                     <FlatList
                         data={pedido.productos}
                         renderItem={({ item }) => (
                             <View style={styles.item}>
                                 <Text>{item.nombre} ({item.talla}) x{item.cantidad}</Text>
-                                <Text>${item.precio}</Text>
+                                <Text style={styles.total}>${item.precio}</Text>
                             </View>
                         )}
                     />
-                    <Text>Subtotal: ${pedido.subtotal.toFixed(2)}</Text>
+                    <View style={styles.vw2}>
+                       <Text>Subtotal: ${pedido.subtotal.toFixed(2)}</Text>
                     <Text>IVA: ${pedido.iva.toFixed(2)}</Text>
                     <Text style={styles.total}>Total: ${pedido.total.toFixed(2)}</Text>
-                    <Button title="Cerrar" onPress={cerrar} />
+                    </View>
+
+                    <Button title="Cerrar"  color="#C6F432" onPress={cerrar} /> 
+                    
                 </View>
             </View>
         </Modal>
@@ -51,7 +55,11 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     total: {
-        fontWeight: 'bold', 
-        marginTop: 10
+        fontWeight: 'bold'
+    },
+    vw2:{
+        marginVertical:10,
+        width:"100%",
+        direction:"rtl"
     }
 });
