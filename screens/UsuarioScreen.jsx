@@ -140,17 +140,20 @@ const loadHistorial = async () => {
                     <Text style={styles.editBtnText}>{editing ? 'Guardar' : 'Editar'}</Text>
                 </TouchableOpacity>
             </View>
-            <Text>Historial de pedidos</Text>
+            <View style={styles.card}>
+                <Text style={styles.titulo}>Historial de pedidos</Text>
                 <FlatList
                 data={historial}
                 renderItem={({item})=>(
-                    <TouchableOpacity onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
-                        <Text>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
-                        <Text>Total: ${item.total.toFixed(2)}</Text>
+                    <TouchableOpacity style={styles.toped}onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
+                        <Text style={styles.valor}>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
+                        <Text style={styles.label}>Total: ${item.total.toFixed(2)}</Text>
                     </TouchableOpacity>    )}
                 ListEmptyComponent={<Text>No hay pedidos</Text>}
                 ></FlatList>
                 <Pedido visible={modalVisible} pedido={pedidoSeleccionado} cerrar={()=> setModalVisible(false)}></Pedido>
+            </View>
+            
         </View>
     );
 }
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 12,
         textAlign: 'center',
     },
     infoGroup: {
@@ -212,4 +215,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
     },
+    toped:{
+        borderWidth:0.5,
+        borderColor:"#C6F432",
+        borderRadius:3,
+        padding:5,
+        margin:2
+    }
 });
