@@ -21,9 +21,8 @@ export default function ItemCarrito({ csc, onUpdateQuantity }) {
             // Llama a la función del padre para actualizar el carrito
             onUpdateQuantity(csc.codigo, nuevaCantidad);
         } else {
-            // Opcional: Eliminar el item si la cantidad llega a 0
-            // onUpdateQuantity(csc.codigo, 0); 
-            Alert.alert("Aviso", "No puedes tener menos de un producto.");
+            onUpdateQuantity(csc.codigo, 0); 
+            Alert.alert("Aviso", "Se ha removido el casco del carrito");
         }
     };
 

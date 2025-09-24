@@ -18,7 +18,6 @@ export default function LoginScreen({ navigation }) {
             if (storedUserData) {
                 const userData = JSON.parse(storedUserData);
                 if (username === userData.username && password === userData.password) {
-                    Alert.alert("Éxito", "¡Inicio de sesión exitoso!");
                     navigation.navigate('Tabs');
                 } else {
                     Alert.alert("Error", "Usuario o contraseña incorrectos.");
