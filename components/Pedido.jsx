@@ -1,10 +1,10 @@
 import { Button, FlatList, Modal, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function Pedido({ visible, pedido, cerrar }) {
+export default function Pedido({visible, pedido, cerrar}) {
     if (!pedido) return null;
     return (
-        <Modal visible={visible}>
+        <Modal visible={visible} transparent={true}>
             <View style={styles.modalv1}>
                 <View style={styles.modalc}>
                     <Text style={styles.titulo}>Pedido del {new Date(pedido.fecha).toLocaleString()}</Text>

@@ -1,7 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import LogoImagen from '../components/LogoImagen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Pedido from '../components/Pedido';
 
 export default function UsuarioScreen() {
     const [editing, setEditing] = useState(false);
@@ -11,6 +12,10 @@ export default function UsuarioScreen() {
         celular: '',
         ciudad: ''
     });
+
+    const [historial, setHistorial] = useState([]);
+    const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -32,6 +37,16 @@ export default function UsuarioScreen() {
             }
         };
         loadUserData();
+
+const loadHistorial = async () => {
+            try {
+                const h = await AsyncStorage.getItem('historial_pedidos');
+                if (h) setHistorial(JSON.parse(h));
+            } catch (e) { }
+        };
+        loadUserData();
+        loadHistorial();
+
     }, []);
 
     const handleChange = (key, value) => {
@@ -59,6 +74,7 @@ export default function UsuarioScreen() {
             console.error("Error al guardar los datos del usuario:", error);
         }
     };
+    console.log(historial)
 
     return (
         <View style={styles.container}>
@@ -120,11 +136,21 @@ export default function UsuarioScreen() {
                 </View>
                 <TouchableOpacity
                     style={styles.editBtn}
-                    onPress={editing ? handleSave : () => setEditing(true)}
-                >
+                    onPress={editing ? handleSave : () => setEditing(true)}>
                     <Text style={styles.editBtnText}>{editing ? 'Guardar' : 'Editar'}</Text>
                 </TouchableOpacity>
             </View>
+            <Text>Historial de pedidos</Text>
+                <FlatList
+                data={historial}
+                renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
+                        <Text>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
+                        <Text>Total: ${item.total.toFixed(2)}</Text>
+                    </TouchableOpacity>    )}
+                ListEmptyComponent={<Text>No hay pedidos</Text>}
+                ></FlatList>
+                <Pedido visible={modalVisible} pedido={pedidoSeleccionado} cerrar={()=> setModalVisible(false)}></Pedido>
         </View>
     );
 }

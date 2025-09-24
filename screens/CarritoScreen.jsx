@@ -58,8 +58,6 @@ export default function CarritoScreen() {
     }
     };
 
-    console.log(carrito)
-
     if (compraCompletada) {
         return (
             <View style={styles.confirmacionContainer}>
