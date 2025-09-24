@@ -1,64 +1,87 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import React, { useState } from 'react';
 import LogoImagen from '../components/LogoImagen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen({ navigation }) {
-  return (
-    <View>
-      <LogoImagen txt='LOGIN' />
-      <View style={{alignItems:"center"}}>
-        <View style={styles.vw1}>
-          <Text style={styles.tit}>Usuario</Text>
-          <TextInput style={styles.ti}></TextInput>
-          <Text style={styles.tit}>Contraseña</Text>
-          <TextInput secureTextEntry={true} style={styles.ti} />
-          <TouchableOpacity style={styles.btnIngresar}
-            onPress={() => navigation.navigate('Tabs')}>
-            <Text style={{ fontSize: 18, fontWeight: "bold", padding: 6 }}>INGRESAR</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
-          <Text style={{ margin: 7 }}>¿No tienes cuenta? Registrate aquí</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-  )
+    const handleLogin = async () => {
+        if (!username || !password) {
+            Alert.alert("Error", "Por favor, ingresa tu usuario y contraseña.");
+            return;
+        }
+
+        try {
+            const storedUserData = await AsyncStorage.getItem('user_data');
+            if (storedUserData) {
+                const userData = JSON.parse(storedUserData);
+                if (username === userData.username && password === userData.password) {
+                    Alert.alert("Éxito", "¡Inicio de sesión exitoso!");
+                    navigation.navigate('Tabs');
+                } else {
+                    Alert.alert("Error", "Usuario o contraseña incorrectos.");
+                }
+            } else {
+                Alert.alert("Error", "No hay una cuenta registrada. Por favor, regístrate.");
+            }
+        } catch (error) {
+            Alert.alert("Error", "Ocurrió un error al iniciar sesión.");
+            console.error("AsyncStorage error: ", error);
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <LogoImagen txt='LOGIN' />
+            <View style={styles.contentContainer}>
+                <View style={styles.formContainer}>
+                    <Text style={styles.tit}>Usuario</Text>
+                    <TextInput style={styles.ti} onChangeText={setUsername} value={username} />
+                    <Text style={styles.tit}>Contraseña</Text>
+                    <TextInput secureTextEntry={true} style={styles.ti} onChangeText={setPassword} value={password} />
+                    <TouchableOpacity style={styles.btnIngresar} onPress={handleLogin}>
+                        <Text style={{ fontSize: 18, fontWeight: "bold", padding: 6 }}>INGRESAR</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
+                    <Text style={{ margin: 7 }}>¿No tienes cuenta? Regístrate aquí</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  vw1: {
-    padding: 5,
-    margin: 10,
-    alignItems: "center",
-    backgroundColor: "#f8f8f8ff",
-    width: "80%"
-  },
-  tit: {
-    fontSize: 17,
-    fontWeight: "bold"
-  },
-  ti: {
-    backgroundColor: "#ffffff",
-    borderColor: "#C6F432",
-    borderWidth: 0.5,
-    borderRadius: 5,
-    margin: 8,
-    padding: 10,
-    width: "80%",
-    fontSize: 18,
-    height: 40
-  },
-  btnIngresar: {
-    backgroundColor: "#C6F432",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 200,
-    padding: 3,
-    margin: 8,
-    borderRadius: 6
-  },
-  vw2: {
-    alignItems: "center"
-  }
-})
+    container: {
+        flex: 1,
+    },
+    contentContainer: {
+        alignItems: "center",
+        flex: 1,
+    },
+    formContainer: {
+        width: "90%",
+    },
+    tit: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginTop: 10,
+    },
+    ti: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginTop: 5,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+    },
+    btnIngresar: {
+        marginTop: 20,
+        backgroundColor: '#C6F432',
+        alignItems: "center",
+        padding: 10,
+        borderRadius: 5,
+    },
+});
