@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     titulo: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
@@ -184,13 +184,13 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     label: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#666',
         fontWeight: '500',
     },
     valor: {
-        fontSize: 18,
-        fontWeight: '600',
+        fontSize: 16,
+        fontWeight: '500',
         marginTop: 5,
         color: '#333',
     },
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     },
     editBtn: {
         backgroundColor: '#C6F432',
-        padding: 15,
+        padding: 6,
         borderRadius: 5,
         alignItems: 'center',
     },
