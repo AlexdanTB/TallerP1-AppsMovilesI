@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import LogoImagen from '../components/LogoImagen'
 import ItemCarrito from "../components/ItemCarrito"
 import { CarritoContx } from '../App'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -15,7 +16,7 @@ export default function CarritoScreen() {
     const iva = total * 0.15;
     const subtotal = total - iva;
 
-    const manejarPago = () => {
+    const manejarPago = async () => {
         setResumenCompra({
             total: total,
             subtotal: subtotal,
@@ -23,17 +24,41 @@ export default function CarritoScreen() {
         });
         setCompraCompletada(true);
         setcarrito([]);
+
+        try {
+            const nuevoPedido = {
+                fecha: new Date().toISOString(),
+                productos: carrito.map(item => ({
+                    codigo: item.codigo,
+                    nombre: item.nombre,
+                    cantidad: item.cantidad || 1,
+                    talla: item.talla || '',
+                    precio: item.precio
+                })),
+                total,
+                subtotal,
+                iva
+            };
+            const historial = await AsyncStorage.getItem('historial_pedidos');
+            let historialArray = historial ? JSON.parse(historial) : [];
+            historialArray.push(nuevoPedido);
+            await AsyncStorage.setItem('historial_pedidos', JSON.stringify(historialArray));
+        } catch (error) {
+            console.error("Error guardando historial de pedidos:", error);
+        }
     };
 
     const handleUpdateQuantity = (codigo, nuevaCantidad) => {
-        const nuevoCarrito = carrito.map(item => {
-            if (item.codigo === codigo) {
-                return { ...item, cantidad: nuevaCantidad };
-            }
-            return item;
-        });
-        setcarrito(nuevoCarrito);
+        if (nuevaCantidad <= 0) {
+        setcarrito(carrito.filter(item => item.codigo !== codigo));
+    } else {
+        setcarrito(carrito.map(item =>
+            item.codigo === codigo ? { ...item, cantidad: nuevaCantidad } : item
+        ));
+    }
     };
+
+    console.log(carrito)
 
     if (compraCompletada) {
         return (
