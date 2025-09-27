@@ -4,21 +4,20 @@ import React, { useState, useEffect } from 'react'
 export default function ItemCarrito({ csc, onUpdateQuantity }) {
     const [cantidad, setCantidad] = useState(csc.cantidad || 1);
 
-    // Usa useEffect para sincronizar el estado local con el prop del padre
     useEffect(() => {
         setCantidad(csc.cantidad || 1);
-    }, [csc.cantidad]); // Se activa cada vez que csc.cantidad cambia
+    }, [csc.cantidad]); 
 
     const handleIncrement = () => {
         const nuevaCantidad = cantidad + 1;
-        // Llama a la función del padre para actualizar el carrito
+  
         onUpdateQuantity(csc.codigo, nuevaCantidad);
     };
 
     const handleDecrement = () => {
         if (cantidad > 1) {
             const nuevaCantidad = cantidad - 1;
-            // Llama a la función del padre para actualizar el carrito
+        
             onUpdateQuantity(csc.codigo, nuevaCantidad);
         } else {
             onUpdateQuantity(csc.codigo, 0); 

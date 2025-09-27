@@ -17,7 +17,6 @@ export default function UsuarioScreen() {
     const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
 
-   // ...existing code...
 useEffect(() => {
     const loadUserData = async () => {
         try {
@@ -30,7 +29,7 @@ useEffect(() => {
                     celular: parsedUserData.celular,
                     ciudad: parsedUserData.ciudad
                 });
-                // Cargar historial después de tener el correo
+                
                 loadHistorial(parsedUserData.email);
             } else {
                 Alert.alert("Aviso", "No se encontró información de usuario. Por favor, inicia sesión.");
@@ -45,7 +44,6 @@ useEffect(() => {
             const h = await AsyncStorage.getItem('historial_pedidos');
             if (h) {
                 const pedidos = JSON.parse(h);
-                // Filtrar por correo del usuario
                 const pedidosUsuario = pedidos.filter(p => p.email === correoUsuario);
                 setHistorial(pedidosUsuario);
             }
@@ -54,7 +52,6 @@ useEffect(() => {
 
     loadUserData();
 }, []);
-// ...existing code...
 
     const handleChange = (key, value) => {
         setUser({ ...user, [key]: value });
@@ -148,19 +145,23 @@ useEffect(() => {
                     <Text style={styles.editBtnText}>{editing ? 'Guardar' : 'Editar'}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.card}>
-                <Text style={styles.titulo}>Historial de pedidos</Text>
-                <FlatList
-                data={historial}
-                renderItem={({item})=>(
-                    <TouchableOpacity style={styles.toped}onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
-                        <Text style={styles.valor}>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
-                        <Text style={styles.label}>Total: ${item.total.toFixed(2)}</Text>
-                    </TouchableOpacity>    )}
+            <View style={[styles.card, {flex: 1}]}>
+                 <Text style={styles.titulo}>Historial de pedidos</Text>
+                    <FlatList
+                    data={historial}
+                    renderItem={({item})=>(
+                <TouchableOpacity style={styles.toped} onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
+                <Text style={styles.valor}>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
+                <Text style={styles.label}>Total: ${item.total.toFixed(2)}</Text>
+                </TouchableOpacity>
+                )}
                 ListEmptyComponent={<Text>No hay pedidos</Text>}
-                ></FlatList>
-                <Pedido visible={modalVisible} pedido={pedidoSeleccionado} cerrar={()=> setModalVisible(false)}></Pedido>
+                keyExtractor={(item, index) => index.toString()}
+                contentContainerStyle={{paddingBottom: 20}}
+                />
+            <Pedido visible={modalVisible} pedido={pedidoSeleccionado} cerrar={()=> setModalVisible(false)} />
             </View>
+            
             
         </View>
     );
