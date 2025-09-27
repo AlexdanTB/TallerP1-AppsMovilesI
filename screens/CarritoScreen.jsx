@@ -88,19 +88,23 @@ export default function CarritoScreen() {
                 <Text style={{ fontWeight: "bold", fontSize: 15, padding: 3, margin: 8 }}>Productos seleccionados</Text>
             </View>
             <View style={styles.view2}>
-                <View style={{ alignItems: "flex-end", margin: 8 }}>
-                    <Button
-                        title="Eliminar todo"
-                        color="#d32f2f"
-                        onPress={() => setcarrito([])}
-                    />
-                </View>
-                <FlatList style={{ height: "40%" }}
-                    data={carrito}
-                    renderItem={({ item }) =>
-                        <ItemCarrito csc={item} onUpdateQuantity={handleUpdateQuantity} />
-                    }
-                />
+    <View style={{ alignItems: "flex-end", margin: 8 }}>
+        <Button
+            title="Eliminar todo"
+            color="#d32f2f"
+            onPress={() => setcarrito([])}
+        />
+         </View>
+        <View style={{ flex: 1 }}>
+        <FlatList
+            data={carrito}
+            renderItem={({ item }) =>
+                <ItemCarrito csc={item} onUpdateQuantity={handleUpdateQuantity} />
+            }
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={{ paddingBottom: 10 }}
+        />
+        </View>
                 <View style={styles.viewpagar}>
                     <View style={{ flexDirection: "row", padding: 6, justifyContent: "space-between" }}>
                         <View>
@@ -129,9 +133,9 @@ export default function CarritoScreen() {
 
 const styles = StyleSheet.create({
   view2: {
+    flex: 1,
     justifyContent: "space-between",
-    height: "85%"
-  },
+    },
   viewpagar: {
     backgroundColor: "#C6F432",
     margin: 6,
