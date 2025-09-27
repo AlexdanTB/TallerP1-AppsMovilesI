@@ -17,53 +17,39 @@ export default function CarritoScreen() {
     const iva = total * 0.15;
     const subtotal = total - iva;
 
-     useEffect(() => {
-        const cargarUsuario = async () => {
-            try {
-                const userData = await AsyncStorage.getItem('user_data');
-                if (userData) {
-                    setUsuario(JSON.parse(userData));
-                }
-            } catch (e) {
-                console.error("Error cargando usuario:", e);
-            }
-        };
-        cargarUsuario();
-    }, []);
-
-
     const manejarPago = async () => {
-        setResumenCompra({
-            total: total,
-            subtotal: subtotal,
-            iva: iva,
-        });
-        setCompraCompletada(true);
-        setcarrito([]);
+    setResumenCompra({
+        total: total,
+        subtotal: subtotal,
+        iva: iva,
+    });
 
-        try {
-            const nuevoPedido = {
-                fecha: new Date().toISOString(),
-                email: usuario.correo,
-                productos: carrito.map(item => ({
-                    codigo: item.codigo,
-                    nombre: item.nombre,
-                    cantidad: item.cantidad || 1,
-                    talla: item.talla || '',
-                    precio: item.precio
-                })),
-                total,
-                subtotal,
-                iva
-            };
-            const historial = await AsyncStorage.getItem('historial_pedidos');
-            let historialArray = historial ? JSON.parse(historial) : [];
-            historialArray.push(nuevoPedido);
-            await AsyncStorage.setItem('historial_pedidos', JSON.stringify(historialArray));
-        } catch (error) {
-            console.error("Error guardando historial de pedidos:", error);
-        }
-    };
+    try {
+        const nuevoPedido = {
+            fecha: new Date().toISOString(),
+            email: usuario.correo,
+            productos: carrito.map(item => ({
+                codigo: item.codigo,
+                nombre: item.nombre,
+                cantidad: item.cantidad || 1,
+                talla: item.talla || '',
+                precio: item.precio
+            })),
+            total,
+            subtotal,
+            iva
+        };
+        const historial = await AsyncStorage.getItem('historial_pedidos');
+        let historialArray = historial ? JSON.parse(historial) : [];
+        historialArray.push(nuevoPedido);
+        await AsyncStorage.setItem('historial_pedidos', JSON.stringify(historialArray));
+    } catch (error) {
+        console.error("Error guardando historial de pedidos:", error);
+    }
+
+    setCompraCompletada(true);
+    setcarrito([]);
+};
 
     const handleUpdateQuantity = (codigo, nuevaCantidad) => {
         if (nuevaCantidad <= 0) {

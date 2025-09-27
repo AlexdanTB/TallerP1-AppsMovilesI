@@ -81,6 +81,7 @@ useEffect(() => {
             console.error("Error al guardar los datos del usuario:", error);
         }
     };
+    console.log("Usuario screen")
     console.log(historial)
 
     return (
