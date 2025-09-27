@@ -1,5 +1,5 @@
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LogoImagen from '../components/LogoImagen'
 import ItemCarrito from "../components/ItemCarrito"
 import { CarritoContx } from '../App'
@@ -11,10 +11,26 @@ export default function CarritoScreen() {
     const { carrito, setcarrito } = useContext(CarritoContx);
     const [compraCompletada, setCompraCompletada] = useState(false);
     const [resumenCompra, setResumenCompra] = useState({ total: 0, subtotal: 0, iva: 0 });
+    const [usuario, setUsuario] = useState({ correo: "" });
 
     const total = carrito.reduce((suma, item) => suma + (item.precio * (item.cantidad || 1)), 0);
     const iva = total * 0.15;
     const subtotal = total - iva;
+
+     useEffect(() => {
+        const cargarUsuario = async () => {
+            try {
+                const userData = await AsyncStorage.getItem('user_data');
+                if (userData) {
+                    setUsuario(JSON.parse(userData));
+                }
+            } catch (e) {
+                console.error("Error cargando usuario:", e);
+            }
+        };
+        cargarUsuario();
+    }, []);
+
 
     const manejarPago = async () => {
         setResumenCompra({
@@ -28,6 +44,7 @@ export default function CarritoScreen() {
         try {
             const nuevoPedido = {
                 fecha: new Date().toISOString(),
+                email: usuario.correo,
                 productos: carrito.map(item => ({
                     codigo: item.codigo,
                     nombre: item.nombre,
