@@ -17,32 +17,31 @@ export default function CarritoScreen() {
     const subtotal = total - iva;
 
     const manejarPago = async () => {
-        setResumenCompra({
-            total: total,
-            subtotal: subtotal,
-            iva: iva,
-        });
+        setResumenCompra({ total, subtotal, iva });
         setCompraCompletada(true);
         setcarrito([]);
 
         try {
+
+            const userData = await AsyncStorage.getItem('user_data');
+        if (!userData) return;
+        const user = JSON.parse(userData);
+        const userKey = `historial_pedidos_${user.email}`;
+
+        const historialActual = await AsyncStorage.getItem(userKey);
+        let historial = historialActual ? JSON.parse(historialActual) : [];
+
             const nuevoPedido = {
-                fecha: new Date().toISOString(),
-                productos: carrito.map(item => ({
-                    codigo: item.codigo,
-                    nombre: item.nombre,
-                    cantidad: item.cantidad || 1,
-                    talla: item.talla || '',
-                    precio: item.precio
-                })),
-                total,
-                subtotal,
-                iva
-            };
-            const historial = await AsyncStorage.getItem('historial_pedidos');
-            let historialArray = historial ? JSON.parse(historial) : [];
-            historialArray.push(nuevoPedido);
-            await AsyncStorage.setItem('historial_pedidos', JSON.stringify(historialArray));
+            fecha: new Date().toISOString(),
+            productos: carrito,
+            subtotal,
+            iva,
+            total
+        };
+        historial.push(nuevoPedido);
+
+            historial.push(nuevoPedido);
+            await AsyncStorage.setItem(userKey, JSON.stringify(historial));
         } catch (error) {
             console.error("Error guardando historial de pedidos:", error);
         }
