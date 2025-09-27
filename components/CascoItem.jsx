@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react'
 import LogoImagen from '../components/LogoImagen'
 import { CarritoContx } from '../App'
 
-export default function CascoItem(cascos) {
+export default function CascoItem(cascos, navigation) {
     const { agregarCarrito } = useContext(CarritoContx)
     const [mostrar, setMostrar] = useState(false)
     const [talla, setTalla] = useState(null)
@@ -82,13 +82,15 @@ export default function CascoItem(cascos) {
                             onPress={() => setMostrar(false)} />
                     </View>
                     <TouchableOpacity style={styles.btnCompra} onPress={() => {
-                        if (!talla){
+                        if (!talla) {
                             Alert.alert("Aviso", "Debes seleccionar la talla")
-                        }else{
-                            agregarCarrito(cascos.csc)
-                            agregarCarrito({ ...cascos.csc, talla, cantidad: 1 })
+                        } else {
+                            agregarCarrito({ ...csc, talla, cantidad: 1 })
+                            setMostrar(false)
+                            if (navigation) {
+                                navigation.navigate('Home') // Cambia 'Home' por el nombre real de tu pantalla principal si es diferente
+                            }
                         }
-                        
                     }}>
                         <Text style={{ fontWeight: "bold", fontSize: 17 }}>COMPRAR</Text>
                     </TouchableOpacity>

@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export default function CarritoScreen() {
+export default function CarritoScreen(navigation) {
     const { carrito, setcarrito } = useContext(CarritoContx);
     const [compraCompletada, setCompraCompletada] = useState(false);
     const [resumenCompra, setResumenCompra] = useState({ total: 0, subtotal: 0, iva: 0 });
