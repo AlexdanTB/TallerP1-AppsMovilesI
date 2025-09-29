@@ -1,4 +1,4 @@
-import { Button, Image, Modal, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Button, Image, Modal, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useState } from 'react'
 import LogoImagen from '../components/LogoImagen'
 import { CarritoContx } from '../App'
@@ -82,8 +82,13 @@ export default function CascoItem(cascos) {
                             onPress={() => setMostrar(false)} />
                     </View>
                     <TouchableOpacity style={styles.btnCompra} onPress={() => {
-                        agregarCarrito(cascos.csc)
-                        agregarCarrito({ ...cascos.csc, talla })
+                        if (!talla){
+                            Alert.alert("Aviso", "Debes seleccionar la talla")
+                        }else{
+                            agregarCarrito(cascos.csc)
+                            agregarCarrito({ ...cascos.csc, talla, cantidad: 1 })
+                        }
+                        
                     }}>
                         <Text style={{ fontWeight: "bold", fontSize: 17 }}>COMPRAR</Text>
                     </TouchableOpacity>

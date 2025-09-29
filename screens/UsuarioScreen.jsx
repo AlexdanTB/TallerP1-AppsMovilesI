@@ -1,7 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import LogoImagen from '../components/LogoImagen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Pedido from '../components/Pedido';
 
 export default function UsuarioScreen() {
     const [editing, setEditing] = useState(false);
@@ -11,6 +12,10 @@ export default function UsuarioScreen() {
         celular: '',
         ciudad: ''
     });
+
+    const [historial, setHistorial] = useState([]);
+    const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -32,6 +37,16 @@ export default function UsuarioScreen() {
             }
         };
         loadUserData();
+
+const loadHistorial = async () => {
+            try {
+                const h = await AsyncStorage.getItem('historial_pedidos');
+                if (h) setHistorial(JSON.parse(h));
+            } catch (e) { }
+        };
+        loadUserData();
+        loadHistorial();
+
     }, []);
 
     const handleChange = (key, value) => {
@@ -59,6 +74,7 @@ export default function UsuarioScreen() {
             console.error("Error al guardar los datos del usuario:", error);
         }
     };
+    console.log(historial)
 
     return (
         <View style={styles.container}>
@@ -120,11 +136,24 @@ export default function UsuarioScreen() {
                 </View>
                 <TouchableOpacity
                     style={styles.editBtn}
-                    onPress={editing ? handleSave : () => setEditing(true)}
-                >
+                    onPress={editing ? handleSave : () => setEditing(true)}>
                     <Text style={styles.editBtnText}>{editing ? 'Guardar' : 'Editar'}</Text>
                 </TouchableOpacity>
             </View>
+            <View style={styles.card}>
+                <Text style={styles.titulo}>Historial de pedidos</Text>
+                <FlatList
+                data={historial}
+                renderItem={({item})=>(
+                    <TouchableOpacity style={styles.toped}onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
+                        <Text style={styles.valor}>Pedido: {new Date(item.fecha).toLocaleString()}</Text>
+                        <Text style={styles.label}>Total: ${item.total.toFixed(2)}</Text>
+                    </TouchableOpacity>    )}
+                ListEmptyComponent={<Text>No hay pedidos</Text>}
+                ></FlatList>
+                <Pedido visible={modalVisible} pedido={pedidoSeleccionado} cerrar={()=> setModalVisible(false)}></Pedido>
+            </View>
+            
         </View>
     );
 }
@@ -146,9 +175,9 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     titulo: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 12,
         textAlign: 'center',
     },
     infoGroup: {
@@ -158,13 +187,13 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     label: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#666',
         fontWeight: '500',
     },
     valor: {
-        fontSize: 18,
-        fontWeight: '600',
+        fontSize: 16,
+        fontWeight: '500',
         marginTop: 5,
         color: '#333',
     },
@@ -177,7 +206,7 @@ const styles = StyleSheet.create({
     },
     editBtn: {
         backgroundColor: '#C6F432',
-        padding: 15,
+        padding: 6,
         borderRadius: 5,
         alignItems: 'center',
     },
@@ -186,4 +215,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
     },
+    toped:{
+        borderWidth:0.5,
+        borderColor:"#C6F432",
+        borderRadius:3,
+        padding:5,
+        margin:2
+    }
 });
