@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LogoImagen from '../components/LogoImagen';
 import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Entypo from '@expo/vector-icons/Entypo';
 
 export default function RegistroScreen({ navigation }) {
     const [nombre, setNombre] = useState('');
@@ -107,7 +108,7 @@ export default function RegistroScreen({ navigation }) {
                         />
                         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                             <Text style={{ marginLeft: 8, fontSize: 18 }}>
-                                {showPassword ? ' x ' : '👁️'}
+                                {showPassword ? <Entypo name="eye-with-line" size={24} color="black" /> : <Entypo name="eye" size={24} color="black" />}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -121,7 +122,7 @@ export default function RegistroScreen({ navigation }) {
                         />
                         <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
                             <Text style={{ marginLeft: 8, fontSize: 18 }}>
-                                {showConfirmPassword ? ' x ' : '👁️'}
+                                {showConfirmPassword ? <Entypo name="eye-with-line" size={24} color="black" />: <Entypo name="eye" size={24} color="black" />}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginTop: 5,
         paddingHorizontal: 10,
-        borderRadius: 5,
+        borderRadius: 5
     },
     btnRegistrar: {
     marginTop: 40, 

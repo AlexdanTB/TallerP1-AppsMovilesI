@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'reac
 import React, { useState } from 'react';
 import LogoImagen from '../components/LogoImagen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Entypo from '@expo/vector-icons/Entypo';
 
 export default function LoginScreen({ navigation }) {
     const [username, setUsername] = useState('');
@@ -49,7 +50,7 @@ export default function LoginScreen({ navigation }) {
                         />
                         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                             <Text style={{ marginLeft: 8, fontSize: 18 }}>
-                                {showPassword ? ' x ' : '👁️'}
+                                {showPassword ? <Entypo name="eye-with-line" size={24} color="black" /> : <Entypo name="eye" size={24} color="black" />}
                             </Text>
                         </TouchableOpacity>
                      </View>
