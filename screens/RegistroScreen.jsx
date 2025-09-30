@@ -1,19 +1,45 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import React, { useState } from 'react';
 import LogoImagen from '../components/LogoImagen';
+import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegistroScreen({ navigation }) {
     const [nombre, setNombre] = useState('');
-    const [email, setEmail] = useState('');
+    const [emailUser, setEmailUser] = useState('');
+    const [emailDomain, setEmailDomain] = useState('@gmail.com');
+    const email = emailUser ? `${emailUser}${emailDomain}` : '';
     const [celular, setCelular] = useState('');
     const [ciudad, setCiudad] = useState('');
+    const ciudadesEcuador = [
+    "Quito", "Guayaquil", "Cuenca", "Santo Domingo", "Machala", "Durán", "Manta", "Portoviejo",
+    "Loja", "Ambato", "Esmeraldas", "Quevedo", "Riobamba", "Milagro", "Ibarra", "Babahoyo",
+    "Tulcán", "Latacunga", "La Libertad", "Salinas", "Santa Elena", "Sangolquí", "Playas", "Otavalo"
+    ];
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+     const validarEmail = (correo) => {
+        return /\S+@\S+\.\S+/.test(correo);
+    };
 
     const handleRegistro = async () => {
-        if (!username || !nombre || !email || !password || !celular || !ciudad) {
+        if (!username || !nombre || !emailUser || !password || !celular || !ciudad) {
             Alert.alert("Error", "Por favor, completa todos los campos.");
+            return;
+        }
+         if (!validarEmail(email)) {
+            Alert.alert("Error", "Por favor, ingresa un correo electrónico válido.");
+            return;
+        }
+        if (password.length < 6) {
+            Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres.");
+            return;
+        }
+        if (password !== confirmPassword) {
+            Alert.alert("Error", "Las contraseñas no coinciden.");
             return;
         }
 
@@ -47,13 +73,74 @@ export default function RegistroScreen({ navigation }) {
                     <Text style={styles.tit}>Nombres completos</Text>
                     <TextInput style={styles.ti} onChangeText={setNombre} value={nombre} />
                     <Text style={styles.tit}>Correo electrónico</Text>
-                    <TextInput style={styles.ti} onChangeText={setEmail} value={email} keyboardType="email-address" />
+                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TextInput
+                        style={[styles.ti, { flex: 1 }]}
+                        placeholder="usuario"
+                        value={emailUser}
+                        onChangeText={setEmailUser}
+                        autoCapitalize="none"
+                    />
+                    <Picker
+                    selectedValue={emailDomain}
+                    onValueChange={setEmailDomain}
+                    style={{ width: 130, height: 55 }}
+                    itemStyle={{ fontSize: 12 }}
+                    >
+                    <Picker.Item label="@gmail.com" value="@gmail.com" />
+                    <Picker.Item label="@hotmail.com" value="@hotmail.com" />
+                    <Picker.Item label="@outlook.es" value="@outlook.es" />
+                    </Picker>
+                    </View>
+                    {emailUser.length > 0 && (
+                    <Text style={{ fontSize: 13, color: '#555', marginBottom: 5 }}>
+                    Tu correo será: <Text style={{ fontWeight: 'bold' }}>{email}</Text>
+                    </Text>
+                    )}
                     <Text style={styles.tit}>Contraseña</Text>
-                    <TextInput style={styles.ti} onChangeText={setPassword} value={password} secureTextEntry={true} />
+                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TextInput
+                            style={[styles.ti, { flex: 1 }]}
+                            onChangeText={setPassword}
+                            value={password}
+                            secureTextEntry={!showPassword}
+                        />
+                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                            <Text style={{ marginLeft: 8, fontSize: 18 }}>
+                                {showPassword ? ' x ' : '👁️'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                     <Text style={styles.tit}>Confirmar contraseña</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TextInput
+                            style={[styles.ti, { flex: 1 }]}
+                            onChangeText={setConfirmPassword}
+                            value={confirmPassword}
+                            secureTextEntry={!showConfirmPassword}
+                        />
+                        <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+                            <Text style={{ marginLeft: 8, fontSize: 18 }}>
+                                {showConfirmPassword ? ' x ' : '👁️'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.tit}>Número de celular</Text>
                     <TextInput style={styles.ti} value={celular} keyboardType='numeric' onChangeText={setCelular} />
                     <Text style={styles.tit}>Ciudad</Text>
-                    <TextInput style={styles.ti} onChangeText={setCiudad} value={ciudad} />
+                    <View style={[styles.ti, { padding: 0 }]}>
+                        <Picker
+                        selectedValue={ciudad}
+                        onValueChange={setCiudad}
+                        style={{ height: 57, fontSize: 20 }}
+                        itemStyle={{ fontSize: 13 }} 
+                        >
+                       <Picker.Item label="Selecciona una ciudad" value="" style={{ fontSize: 17 }} />
+                        {ciudadesEcuador.map((c) => (
+                        <Picker.Item key={c} label={c} value={c} />
+                        ))}
+                        </Picker>
+                    </View>
                     <TouchableOpacity style={styles.btnRegistrar} onPress={handleRegistro}>
                         <Text style={styles.txtReg}>REGISTRAR</Text>
                     </TouchableOpacity>
@@ -89,12 +176,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     btnRegistrar: {
-        marginTop: 20,
-        backgroundColor: '#C6F432',
-        alignItems: "center",
-        padding: 10,
-        borderRadius: 5,
-    },
+    marginTop: 40, 
+    backgroundColor: '#C6F432',
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 5,
+},
     txtReg: {
         fontSize: 18,
         fontWeight: "bold",
