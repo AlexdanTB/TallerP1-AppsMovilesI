@@ -20,34 +20,39 @@ export default function UsuarioScreen() {
     useEffect(() => {
         const loadUserData = async () => {
             try {
-                const storedUserData = await AsyncStorage.getItem('user_data');
-                if (storedUserData) {
-                    const parsedUserData = JSON.parse(storedUserData);
-                    setUser({
-                        nombre: parsedUserData.nombre,
-                        correo: parsedUserData.email,
-                        celular: parsedUserData.celular,
-                        ciudad: parsedUserData.ciudad
-                    });
-                } else {
-                    Alert.alert("Aviso", "No se encontró información de usuario. Por favor, inicia sesión.");
-                }
-            } catch (error) {
-                console.error("Error al cargar los datos del usuario:", error);
+            const storedUserData = await AsyncStorage.getItem('user_data');
+            if (storedUserData) {
+                const parsedUserData = JSON.parse(storedUserData);
+                setUser({
+                    nombre: parsedUserData.nombre,
+                    correo: parsedUserData.email,
+                    celular: parsedUserData.celular,
+                    ciudad: parsedUserData.ciudad
+                });
+
+                const userKey = `historial_pedidos_${parsedUserData.email}`;
+                const h = await AsyncStorage.getItem(userKey);
+                if (h) setHistorial(JSON.parse(h));
+                else setHistorial([]);
+            } else {
+                Alert.alert("Aviso", "No se encontró información de usuario. Por favor, inicia sesión.");
             }
-        };
-        loadUserData();
+        } catch (error) {
+            console.error("Error al cargar los datos del usuario:", error);
+        }
+};
 
 const loadHistorial = async () => {
-            try {
-                const h = await AsyncStorage.getItem('historial_pedidos');
-                if (h) setHistorial(JSON.parse(h));
-            } catch (e) { }
-        };
-        loadUserData();
-        loadHistorial();
+        try {
+            const h = await AsyncStorage.getItem('historial_pedidos');
+            if (h) setHistorial(JSON.parse(h));
+            else setHistorial([]);
+        } catch (e) { }
+    };
 
-    }, []);
+    loadUserData();
+    loadHistorial();
+}, []);
 
     const handleChange = (key, value) => {
         setUser({ ...user, [key]: value });
@@ -61,7 +66,7 @@ const loadHistorial = async () => {
                 const updatedUserData = {
                     ...parsedUserData,
                     nombre: user.nombre,
-                    email: user.correo,
+                    email: user.email,
                     celular: user.celular,
                     ciudad: user.ciudad
                 };
