@@ -174,11 +174,12 @@ const styles = StyleSheet.create({
     },
     ti: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: '#c7c7c7ff',
         borderWidth: 1,
         marginTop: 5,
         paddingHorizontal: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        backgroundColor:"#fafafaff"
     },
     btnRegistrar: {
     marginTop: 40, 
