@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async () => {
         if (!username || !password) {
@@ -39,7 +40,19 @@ export default function LoginScreen({ navigation }) {
                     <Text style={styles.tit}>Usuario</Text>
                     <TextInput style={styles.ti} onChangeText={setUsername} value={username} />
                     <Text style={styles.tit}>Contraseña</Text>
-                    <TextInput secureTextEntry={true} style={styles.ti} onChangeText={setPassword} value={password} />
+                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TextInput
+                            secureTextEntry={!showPassword}
+                            style={[styles.ti, { flex: 1 }]}
+                            onChangeText={setPassword}
+                            value={password}
+                        />
+                        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                            <Text style={{ marginLeft: 8, fontSize: 18 }}>
+                                {showPassword ? ' x ' : '👁️'}
+                            </Text>
+                        </TouchableOpacity>
+                     </View>
                     <TouchableOpacity style={styles.btnIngresar} onPress={handleLogin}>
                         <Text style={{ fontSize: 18, fontWeight: "bold", padding: 6 }}>INGRESAR</Text>
                     </TouchableOpacity>
