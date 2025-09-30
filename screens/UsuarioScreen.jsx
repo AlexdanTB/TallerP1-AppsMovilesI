@@ -41,17 +41,7 @@ export default function UsuarioScreen() {
             console.error("Error al cargar los datos del usuario:", error);
         }
 };
-
-const loadHistorial = async () => {
-        try {
-            const h = await AsyncStorage.getItem('historial_pedidos');
-            if (h) setHistorial(JSON.parse(h));
-            else setHistorial([]);
-        } catch (e) { }
-    };
-
     loadUserData();
-    loadHistorial();
 }, []);
 
     const handleChange = (key, value) => {

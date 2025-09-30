@@ -11,7 +11,6 @@ export function CarritoProv({children}) {
   const agregarCarrito = (item) => {
     setcarrito([...carrito, item]);
     Alert.alert("Agregado", "Se agregó al carrito");
-    console.log(carrito);
   };
   return (
     <CarritoContx.Provider value={{ carrito, agregarCarrito, setcarrito }}>

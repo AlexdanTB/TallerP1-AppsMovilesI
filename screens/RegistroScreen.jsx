@@ -141,7 +141,11 @@ export default function RegistroScreen({ navigation }) {
                         ))}
                         </Picker>
                     </View>
-                    <TouchableOpacity style={styles.btnRegistrar} onPress={handleRegistro}>
+                    <TouchableOpacity style={styles.btnRegistrar} onPress={handleRegistro} onLongPress={()=>
+                        AsyncStorage.clear()
+  .then(() => console.log('AsyncStorage limpiado'))
+  .catch(e => console.error('Error limpiando AsyncStorage', e))
+                    }>
                         <Text style={styles.txtReg}>REGISTRAR</Text>
                     </TouchableOpacity>
                 </View>

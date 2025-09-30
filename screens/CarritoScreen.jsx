@@ -38,8 +38,6 @@ export default function CarritoScreen() {
             iva,
             total
         };
-        historial.push(nuevoPedido);
-
             historial.push(nuevoPedido);
             await AsyncStorage.setItem(userKey, JSON.stringify(historial));
         } catch (error) {
