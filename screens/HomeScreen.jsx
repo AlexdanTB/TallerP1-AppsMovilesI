@@ -5,6 +5,7 @@ import CascoItem from '../components/CascoItem';
 import LogoImagen from '../components/LogoImagen';
 import TipoSelector from '../components/TipoSelector';
 
+
 export default function HomeScreen() {
   const cascos = datos;
  const [busqueda, setBusqueda] = useState('');

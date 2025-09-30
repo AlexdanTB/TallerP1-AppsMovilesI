@@ -2,51 +2,54 @@ import { Alert, Button, Image, Modal, Share, StyleSheet, Text, TouchableOpacity,
 import React, { useContext, useState } from 'react'
 import LogoImagen from '../components/LogoImagen'
 import { CarritoContx } from '../App'
+import { useNavigation } from '@react-navigation/native'
 
-export default function CascoItem(cascos) {
+
+export default function CascoItem({ csc }) {
     const { agregarCarrito } = useContext(CarritoContx)
     const [mostrar, setMostrar] = useState(false)
     const [talla, setTalla] = useState(null)
+    const navigation = useNavigation()
     return (
         <TouchableOpacity style={styles.toc} onPress={() => setMostrar(true)}>
-            <Image style={styles.img} source={{ uri: cascos.csc.imagen }} />
-            <Text style={styles.tcod}>{cascos.csc.codigo}</Text>
-            <Text style={styles.tnom}>{cascos.csc.nombre}</Text>
-            <Text style={styles.tprecio}>${cascos.csc.precio}</Text>
+            <Image style={styles.img} source={{ uri: csc.imagen }} />
+            <Text style={styles.tcod}>{csc.codigo}</Text>
+            <Text style={styles.tnom}>{csc.nombre}</Text>
+            <Text style={styles.tprecio}>${csc.precio}</Text>
 
             <Modal visible={mostrar}>
                 <View>
                     <LogoImagen txt="DETALLES" />
                     <View style={{ alignItems: "center", marginTop: 10 }}>
-                        <Image style={styles.imgdet} source={{ uri: cascos.csc.imagen }} />
+                        <Image style={styles.imgdet} source={{ uri: csc.imagen }} />
                     </View>
                     <View style={{ margin: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                             <View>
-                                <Text style={{ fontSize: 18, fontWeight: "500" }}>{cascos.csc.nombre}</Text>
-                                <Text>{cascos.csc.codigo}</Text>
+                                <Text style={{ fontSize: 18, fontWeight: "500" }}>{csc.nombre}</Text>
+                                <Text>{csc.codigo}</Text>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 22, fontWeight: "bold", marginRight: 5 }}>${cascos.csc.precio}</Text>
+                                <Text style={{ fontSize: 22, fontWeight: "bold", marginRight: 5 }}>${csc.precio}</Text>
                             </View>
                         </View>
 
                         <View style={styles.vdet}>
                             <View style={styles.v2det}>
                                 <Text>Marca</Text>
-                                <Text style={{ fontWeight: "bold" }}>{cascos.csc.marca}</Text>
+                                <Text style={{ fontWeight: "bold" }}>{csc.marca}</Text>
                             </View>
                             <View style={styles.v2det}>
                                 <Text>Material</Text>
-                                <Text style={{ fontWeight: "bold" }}>{cascos.csc.material}</Text>
+                                <Text style={{ fontWeight: "bold" }}>{csc.material}</Text>
                             </View>
                             <View style={styles.v2det}>
                                 <Text>Tipo</Text>
-                                <Text style={{ fontWeight: "bold" }}>{cascos.csc.tipo}</Text>
+                                <Text style={{ fontWeight: "bold" }}>{csc.tipo}</Text>
                             </View>
                             <View style={styles.v2det}>
                                 <Text>Certificación</Text>
-                                <Text style={{ fontWeight: "bold" }}>{cascos.csc.hologacion}</Text>
+                                <Text style={{ fontWeight: "bold" }}>{csc.hologacion}</Text>
                             </View>
                         </View>
 
@@ -81,15 +84,17 @@ export default function CascoItem(cascos) {
                         <Button title='Volver' color="#000000"
                             onPress={() => setMostrar(false)} />
                     </View>
-                    <TouchableOpacity style={styles.btnCompra} onPress={() => {
-                        if (!talla){
-                            Alert.alert("Aviso", "Debes seleccionar la talla")
-                        }else{
-                            agregarCarrito(cascos.csc)
-                            agregarCarrito({ ...cascos.csc, talla, cantidad: 1 })
+                     <TouchableOpacity
+                        style={styles.btnCompra} onPress={() => {
+                        if (!talla) {
+                        Alert.alert("Aviso", "Debes seleccionar la talla")
+                        } else {
+                        agregarCarrito({ ...csc, talla, cantidad: 1 }) 
+                        setMostrar(false)
+                        navigation.navigate("Tabs", { screen: "Home" })
                         }
-                        
-                    }}>
+                        }}
+                    >
                         <Text style={{ fontWeight: "bold", fontSize: 17 }}>COMPRAR</Text>
                     </TouchableOpacity>
                 </View>
