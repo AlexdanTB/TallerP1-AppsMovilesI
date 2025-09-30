@@ -147,7 +147,7 @@ const loadHistorial = async () => {
             </View>
             <View style={styles.card}>
                 <Text style={styles.titulo}>Historial de pedidos</Text>
-                <FlatList
+                <FlatList style={styles.flHistorial}
                 data={historial}
                 renderItem={({item})=>(
                     <TouchableOpacity style={styles.toped}onPress={()=>{setPedidoSeleccionado(item); setModalVisible(true);}}>
@@ -171,7 +171,8 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
         padding: 20,
-        margin: 20,
+        marginHorizontal: 20,
+        marginTop:8,
         borderRadius: 10,
         elevation: 3,
         shadowColor: '#000',
@@ -226,5 +227,8 @@ const styles = StyleSheet.create({
         borderRadius:3,
         padding:5,
         margin:2
+    },
+    flHistorial:{
+        height:"35%"
     }
 });
